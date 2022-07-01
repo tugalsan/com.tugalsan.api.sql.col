@@ -11,6 +11,7 @@ import com.tugalsan.api.sql.resultset.server.*;
 import com.tugalsan.api.sql.sanitize.server.*;
 import com.tugalsan.api.sql.update.server.*;
 import com.tugalsan.api.string.client.*;
+import com.tugalsan.api.unsafe.client.*;
 
 public class TS_SQLColUtils {
 
@@ -75,24 +76,22 @@ public class TS_SQLColUtils {
         TS_SQLSanitizeUtils.sanitize(tableName);
         List<TS_SQLColTypeInfo> columnInfos = TGS_ListUtils.of();
         TS_SQLDBUtils.meta(anchor, meta -> {
-            try ( var rss = meta.getColumns(null, null, tableName.toString(), null);) {
-                var rs = new TS_SQLResultSet(rss);
-                rs.walkRows(null, ri -> {
-                    try {
-                        var colInfo = new TS_SQLColTypeInfo();
-                        colInfo.COLUMN_NAME = rs.str.get("COLUMN_NAME");
-                        colInfo.TYPE_NAME = rs.str.get("TYPE_NAME");
-                        colInfo.COLUMN_SIZE = rs.resultSet.getInt("COLUMN_SIZE");
-                        colInfo.NULLABLE = rs.resultSet.getInt("NULLABLE") == DatabaseMetaData.columnNullable;
-                        colInfo.ORDINAL_POSITION = rs.resultSet.getInt("ORDINAL_POSITION");
-                        columnInfos.add(colInfo);
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
-                });
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+            TGS_UnSafe.execute(() -> {
+                try ( var rss = meta.getColumns(null, null, tableName.toString(), null);) {
+                    var rs = new TS_SQLResultSet(rss);
+                    rs.walkRows(null, ri -> {
+                        TGS_UnSafe.execute(() -> {
+                            var colInfo = new TS_SQLColTypeInfo();
+                            colInfo.COLUMN_NAME = rs.str.get("COLUMN_NAME");
+                            colInfo.TYPE_NAME = rs.str.get("TYPE_NAME");
+                            colInfo.COLUMN_SIZE = rs.resultSet.getInt("COLUMN_SIZE");
+                            colInfo.NULLABLE = rs.resultSet.getInt("NULLABLE") == DatabaseMetaData.columnNullable;
+                            colInfo.ORDINAL_POSITION = rs.resultSet.getInt("ORDINAL_POSITION");
+                            columnInfos.add(colInfo);
+                        });
+                    });
+                }
+            });
         });
         return columnInfos;
     }
