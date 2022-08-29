@@ -15,7 +15,7 @@ import com.tugalsan.api.unsafe.client.*;
 
 public class TS_SQLColUtils {
 
-    final private static TS_Log d = TS_Log.of(TS_SQLColUtils.class.getSimpleName());
+    final private static TS_Log d = TS_Log.of(TS_SQLColUtils.class);
 
     public static boolean setPrimaryKey(TS_SQLConnAnchor anchor, CharSequence tableName, CharSequence primaryColumnName) {
         TS_SQLSanitizeUtils.sanitize(tableName);
