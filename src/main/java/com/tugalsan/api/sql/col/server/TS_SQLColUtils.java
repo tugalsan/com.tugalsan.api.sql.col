@@ -21,14 +21,14 @@ public class TS_SQLColUtils {
         TS_SQLSanitizeUtils.sanitize(tableName);
         TS_SQLSanitizeUtils.sanitize(primaryColumnName);
         var sql = TGS_StringUtils.concat("ALTER TABLE ", tableName, " ADD PRIMARY KEY ('", primaryColumnName, "')");
-        return TS_SQLUpdateStmtUtils.update(anchor, sql) == 1;
+        return TS_SQLUpdateStmtUtils.update(anchor, sql).affectedRowCount == 1;
     }
 
     public static boolean delPrimaryKey(TS_SQLConnAnchor anchor, CharSequence tableName, String primaryColumnName) {
         TS_SQLSanitizeUtils.sanitize(tableName);
         TS_SQLSanitizeUtils.sanitize(primaryColumnName);
         var sql = TGS_StringUtils.concat("ALTER TABLE ", tableName, " DROP PRIMARY KEY ('", primaryColumnName, "')");
-        return TS_SQLUpdateStmtUtils.update(anchor, sql) == 1;
+        return TS_SQLUpdateStmtUtils.update(anchor, sql).affectedRowCount == 1;
     }
 
     public static List<String> names(TS_SQLConnAnchor anchor, CharSequence tableName) {
@@ -42,14 +42,14 @@ public class TS_SQLColUtils {
         TS_SQLSanitizeUtils.sanitize(columnName);
         TS_SQLSanitizeUtils.sanitize(creationType);
         var sql = TGS_StringUtils.concat("ALTER TABLE ", tableName, " ADD ", columnName, " ", creationType);
-        return TS_SQLUpdateStmtUtils.update(anchor, sql) == 1;
+        return TS_SQLUpdateStmtUtils.update(anchor, sql).affectedRowCount == 1;
     }
 
     public static boolean delete(TS_SQLConnAnchor anchor, CharSequence tableName, CharSequence columnName) {
         TS_SQLSanitizeUtils.sanitize(tableName);
         TS_SQLSanitizeUtils.sanitize(columnName);
         var sql = TGS_StringUtils.concat("ALTER TABLE ", tableName, " DROP ", columnName);
-        return TS_SQLUpdateStmtUtils.update(anchor, sql) == 1;
+        return TS_SQLUpdateStmtUtils.update(anchor, sql).affectedRowCount == 1;
     }
 
     public static boolean rename(TS_SQLConnAnchor anchor, CharSequence tableName, CharSequence oldColumnName, CharSequence newColumnName) {
@@ -60,7 +60,7 @@ public class TS_SQLColUtils {
         TS_SQLSanitizeUtils.sanitize(newColumnName);
         TS_SQLSanitizeUtils.sanitize(creationType);
         var sql = TGS_StringUtils.concat("ALTER TABLE ", tableName, " CHANGE ", oldColumnName, " ", newColumnName, " ", creationType);
-        return TS_SQLUpdateStmtUtils.update(anchor, sql) == 1;
+        return TS_SQLUpdateStmtUtils.update(anchor, sql).affectedRowCount == 1;
     }
 
     @Deprecated
@@ -69,7 +69,7 @@ public class TS_SQLColUtils {
         TS_SQLSanitizeUtils.sanitize(column_to_move);
         TS_SQLSanitizeUtils.sanitize(column_to_move_after);
         var sql = TGS_StringUtils.concat("ALTER TABLE ", tableName, " MODIFY ", column_to_move, " tinyint(1) DEFAULT '0' AFTER ", column_to_move_after);
-        return TS_SQLUpdateStmtUtils.update(anchor, sql) == 1;
+        return TS_SQLUpdateStmtUtils.update(anchor, sql).affectedRowCount == 1;
     }
 
     public static List<TS_SQLColTypeInfo> types(TS_SQLConnAnchor anchor, CharSequence tableName) {
