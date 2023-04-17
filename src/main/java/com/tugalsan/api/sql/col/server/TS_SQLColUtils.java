@@ -76,11 +76,11 @@ public class TS_SQLColUtils {
         TS_SQLSanitizeUtils.sanitize(tableName);
         List<TS_SQLColTypeInfo> columnInfos = TGS_ListUtils.of();
         TS_SQLDBUtils.meta(anchor, meta -> {
-            TGS_UnSafe.execute(() -> {
+            TGS_UnSafe.run(() -> {
                 try ( var rss = meta.getColumns(null, null, tableName.toString(), null);) {
                     var rs = new TS_SQLResultSet(rss);
                     rs.walkRows(null, ri -> {
-                        TGS_UnSafe.execute(() -> {
+                        TGS_UnSafe.run(() -> {
                             var colInfo = new TS_SQLColTypeInfo();
                             colInfo.COLUMN_NAME = rs.str.get("COLUMN_NAME");
                             colInfo.TYPE_NAME = rs.str.get("TYPE_NAME");
