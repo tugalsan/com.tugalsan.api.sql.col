@@ -1,6 +1,6 @@
 module com.tugalsan.api.sql.col {
     requires java.sql;
-    requires com.tugalsan.api.runnable;
+    requires com.tugalsan.api.callable;
     requires com.tugalsan.api.list;
     requires com.tugalsan.api.unsafe;
     requires com.tugalsan.api.log;
