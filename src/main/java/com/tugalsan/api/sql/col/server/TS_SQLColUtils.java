@@ -1,5 +1,6 @@
 package com.tugalsan.api.sql.col.server;
 
+import com.tugalsan.api.function.client.maythrow.checkedexceptions.TGS_FuncMTCEUtils;
 import java.sql.*;
 import java.util.*;
 import com.tugalsan.api.list.client.*;
@@ -10,7 +11,7 @@ import com.tugalsan.api.sql.resultset.server.*;
 import com.tugalsan.api.sql.sanitize.server.*;
 import com.tugalsan.api.sql.update.server.*;
 import com.tugalsan.api.string.client.*;
-import com.tugalsan.api.unsafe.client.*;
+
 
 public class TS_SQLColUtils {
 
@@ -75,11 +76,11 @@ public class TS_SQLColUtils {
         TS_SQLSanitizeUtils.sanitize(tableName);
         List<TS_SQLColTypeInfo> columnInfos = TGS_ListUtils.of();
         TS_SQLDBUtils.meta(anchor, meta -> {
-            TGS_UnSafe.run(() -> {
+            TGS_FuncMTCEUtils.run(() -> {
                 try ( var rss = meta.getColumns(null, null, tableName.toString(), null);) {
                     var rs = new TS_SQLResultSet(rss);
                     rs.walkRows(null, ri -> {
-                        TGS_UnSafe.run(() -> {
+                        TGS_FuncMTCEUtils.run(() -> {
                             var colInfo = new TS_SQLColTypeInfo();
                             colInfo.COLUMN_NAME = rs.str.get("COLUMN_NAME");
                             colInfo.TYPE_NAME = rs.str.get("TYPE_NAME");
