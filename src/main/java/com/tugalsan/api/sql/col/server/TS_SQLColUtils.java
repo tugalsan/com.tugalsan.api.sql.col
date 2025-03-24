@@ -1,6 +1,6 @@
 package com.tugalsan.api.sql.col.server;
 
-import com.tugalsan.api.function.client.maythrow.checkedexceptions.TGS_FuncMTCEUtils;
+import com.tugalsan.api.function.client.maythrowexceptions.checked.TGS_FuncMTCUtils;
 import java.sql.*;
 import java.util.*;
 import com.tugalsan.api.list.client.*;
@@ -76,11 +76,11 @@ public class TS_SQLColUtils {
         TS_SQLSanitizeUtils.sanitize(tableName);
         List<TS_SQLColTypeInfo> columnInfos = TGS_ListUtils.of();
         TS_SQLDBUtils.meta(anchor, meta -> {
-            TGS_FuncMTCEUtils.run(() -> {
+            TGS_FuncMTCUtils.run(() -> {
                 try ( var rss = meta.getColumns(null, null, tableName.toString(), null);) {
                     var rs = new TS_SQLResultSet(rss);
                     rs.walkRows(null, ri -> {
-                        TGS_FuncMTCEUtils.run(() -> {
+                        TGS_FuncMTCUtils.run(() -> {
                             var colInfo = new TS_SQLColTypeInfo();
                             colInfo.COLUMN_NAME = rs.str.get("COLUMN_NAME");
                             colInfo.TYPE_NAME = rs.str.get("TYPE_NAME");
