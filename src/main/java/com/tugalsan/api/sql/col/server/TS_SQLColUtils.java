@@ -53,7 +53,7 @@ public class TS_SQLColUtils {
     }
 
     public static boolean rename(TS_SQLConnAnchor anchor, CharSequence tableName, CharSequence oldColumnName, CharSequence newColumnName) {
-        var ct = new TGS_SQLColTyped(oldColumnName.toString());
+        var ct = TGS_SQLColTyped.of(oldColumnName.toString());
         var creationType = TS_SQLConnColUtils.creationType(anchor, ct);
         TS_SQLSanitizeUtils.sanitize(tableName);
         TS_SQLSanitizeUtils.sanitize(oldColumnName);
