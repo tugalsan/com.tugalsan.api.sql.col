@@ -1,16 +1,16 @@
 package com.tugalsan.api.sql.col.server;
 
-import com.tugalsan.api.function.client.maythrowexceptions.checked.TGS_FuncMTCUtils;
+import module com.tugalsan.api.function;
+import module com.tugalsan.api.list;
+import module com.tugalsan.api.sql.col.typed;
+import module com.tugalsan.api.sql.conn;
+import module com.tugalsan.api.sql.db;
+import module com.tugalsan.api.sql.resultset;
+import module com.tugalsan.api.sql.sanitize;
+import module com.tugalsan.api.sql.update;
+import module com.tugalsan.api.string;
 import java.sql.*;
 import java.util.*;
-import com.tugalsan.api.list.client.*;
-import com.tugalsan.api.sql.col.typed.client.*;
-import com.tugalsan.api.sql.conn.server.*;
-import com.tugalsan.api.sql.db.server.*;
-import com.tugalsan.api.sql.resultset.server.*;
-import com.tugalsan.api.sql.sanitize.server.*;
-import com.tugalsan.api.sql.update.server.*;
-import com.tugalsan.api.string.client.*;
 
 
 public class TS_SQLColUtils {
