@@ -9,7 +9,7 @@ import module com.tugalsan.api.sql.resultset;
 import module com.tugalsan.api.sql.sanitize;
 import module com.tugalsan.api.sql.update;
 import module com.tugalsan.api.string;
-import java.sql.*;
+import module java.sql;
 import java.util.*;
 
 
